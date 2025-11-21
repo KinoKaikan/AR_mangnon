@@ -4,36 +4,78 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>Măng Non AR</title>
+
+  <!-- model-viewer -->
   <script type="module" src="https://cdn.jsdelivr.net/npm/@google/model-viewer@latest/dist/model-viewer.min.js"></script>
+
   <style>
     body { 
       margin:0; 
       height:100vh; 
       display:flex; 
       align-items:center; 
-      justify-content:center; 
-      /* background ảnh web */
+      justify-content:center;
       background: url('nen.png') no-repeat center center;
       background-size: cover;
     }
-
-    model-viewer { 
-      width:100%; 
-      height:100%; 
-      /*background-color: transparent; /* để AR không bị ảnh nền */
+    model-viewer {
+      width: 100%;
+      height: 100%;
     }
   </style>
 </head>
+
 <body>
+
   <model-viewer
     src="https://raw.githubusercontent.com/KinoKaikan/AR_mangnon/main/mangnon.glb"
     ios-src="https://raw.githubusercontent.com/KinoKaikan/AR_mangnon/main/mangnon.usdz"
-    alt="Mang Non"
+    alt="Măng Non AR"
     auto-rotate
     camera-controls
+
     ar
     ar-modes="webxr scene-viewer quick-look"
+    ar-scale="auto"
+
+    camera-orbit="45deg 60deg 3m"
     shadow-intensity="1"
-  ></model-viewer>
+
+    environment-image="neutral"
+  >
+    <!-- Nút AR (chỉ hiện khi device hỗ trợ) -->
+    <button slot="ar-button" style="
+      position: absolute;
+      bottom: 30px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: #ff9900;
+      padding: 12px 20px;
+      border-radius: 12px;
+      border: none;
+      font-size: 16px;
+      font-weight: bold;
+      color: white;
+      cursor: pointer;
+    ">
+      Xem AR bằng Camera
+    </button>
+
+    <!-- Thông báo nếu AR không hỗ trợ -->
+    <div slot="ar-prompt" style="
+      position: absolute;
+      bottom: 20px;
+      left: 50%;
+      transform: translateX(-50%);
+      color: white;
+      font-size: 14px;
+      background: rgba(0,0,0,0.5);
+      padding: 8px 12px;
+      border-radius: 10px;
+    ">
+      Di chuyển camera để quét mặt phẳng...
+    </div>
+  </model-viewer>
+
 </body>
 </html>
